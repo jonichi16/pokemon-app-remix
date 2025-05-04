@@ -7,4 +7,6 @@ export function meta() {
   ];
 }
 
-export default Home;
+export default function HomePage() {
+  return <Home />;
+}

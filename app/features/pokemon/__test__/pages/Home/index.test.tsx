@@ -1,21 +1,14 @@
-import { createRoutesStub } from "react-router";
 import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import { Home } from "~/features/pokemon/pages";
-
-const setupRouterAndRender = (initialUrl: string) => {
-  const Stub = createRoutesStub([
-    {
-      path: "/",
-      Component: Home,
-    },
-  ]);
-
-  render(<Stub initialEntries={[initialUrl]} />);
-};
 
 describe("Home test", () => {
   beforeEach(() => {
-    setupRouterAndRender("/");
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
   });
 
   test("renders titles and include button to navigate", async () => {
