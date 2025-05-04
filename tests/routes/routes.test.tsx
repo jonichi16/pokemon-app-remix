@@ -14,6 +14,7 @@ const setupRouterAndRender = (initialUrl: string) => {
     {
       path: "/pokemons",
       Component: PokemonListPage,
+      HydrateFallback: () => <div>Loading...</div>,
       loader({ request }) {
         const url = new URL(request.url);
         const limit = Number(url.searchParams.get("limit") ?? 10);
@@ -33,27 +34,44 @@ const setupRouterAndRender = (initialUrl: string) => {
   render(<Stub initialEntries={[initialUrl]} />);
 };
 
-describe("Home test", () => {
-  beforeEach(() => {
-    setupRouterAndRender("/");
-  });
+describe("Navigation test", () => {
+  describe("HomePage navigation", () => {
+    beforeEach(() => {
+      setupRouterAndRender("/");
+    });
 
-  test("renders titles and include button to navigate", async () => {
-    await waitFor(() => {
-      expect(screen.getByText("Welcome to Pokemon App!")).toBeInTheDocument();
-      expect(
-        screen.getByRole("link", { name: "See Pokemons" })
-      ).toBeInTheDocument();
+    test("navigate to pokemons list", async () => {
+      await waitFor(() => screen.getByText("See Pokemons"));
+
+      await userEvent.click(screen.getByText("See Pokemons"));
+
+      await waitFor(() => {
+        expect(screen.getByText("List of Pokemon")).toBeInTheDocument();
+      });
     });
   });
 
-  test("navigate to pokemons list", async () => {
-    await waitFor(() => screen.getByText("See Pokemons"));
+  describe("PokemonListPage navigation", () => {
+    beforeEach(() => {
+      setupRouterAndRender("/pokemons");
+    });
 
-    await userEvent.click(screen.getByText("See Pokemons"));
+    test("pokemon list navigates to next page and back", async () => {
+      await waitFor(() => screen.getByText("Next"));
 
-    await waitFor(() => {
-      expect(screen.getByText("List of Pokemon")).toBeInTheDocument();
+      await userEvent.click(screen.getByText("Next"));
+      await waitFor(() => {
+        expect(screen.getByText("wartortle")).toBeInTheDocument();
+        expect(screen.queryByText("pikachu")).not.toBeInTheDocument();
+        expect(screen.getByText("Previous")).toBeInTheDocument();
+        expect(screen.queryByText("Next")).not.toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getByText("Previous"));
+      await waitFor(() => {
+        expect(screen.getByText("pikachu")).toBeInTheDocument();
+        expect(screen.queryByText("wartortle")).not.toBeInTheDocument();
+      });
     });
   });
 });
