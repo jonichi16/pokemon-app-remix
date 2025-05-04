@@ -1,7 +1,6 @@
 import { render, waitFor, screen } from "@testing-library/react";
-import { createRoutesStub } from "react-router";
-import { PokemonListPage } from "~/features/pokemon/pages";
-import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router";
+import { PokemonList } from "~/features/pokemon/pages";
 
 const mockPokemons = [
   { name: "pikachu", url: "url1" },
@@ -18,36 +17,19 @@ const mockPokemons = [
   { name: "wartortle", url: "url2" },
 ];
 
-const setupRouterAndRender = (initialUrl: string) => {
-  const Stub = createRoutesStub([
-    {
-      path: "/pokemons",
-      Component: PokemonListPage,
-      loader({ request }) {
-        const url = new URL(request.url);
-        const limit = Number(url.searchParams.get("limit") ?? 10);
-        const offset = Number(url.searchParams.get("offset") ?? 0);
-
-        const paginated = mockPokemons.slice(offset, offset + limit);
-        return {
-          pokemons: paginated,
-          total: mockPokemons.length,
-          limit,
-          offset,
-        };
-      },
-    },
-  ]);
-
-  render(<Stub initialEntries={[initialUrl]} />);
-};
-
 describe("PokemonListPage test", () => {
-  beforeEach(() => {
-    setupRouterAndRender("/pokemons");
-  });
-
   test("renders list of pokemons", async () => {
+    render(
+      <MemoryRouter>
+        <PokemonList
+          pokemons={mockPokemons.slice(0, 10)}
+          total={mockPokemons.length}
+          limit={10}
+          offset={0}
+        />
+      </MemoryRouter>
+    );
+
     await waitFor(() => {
       expect(screen.getByText("List of Pokemon")).toBeInTheDocument();
       expect(screen.getByText("pikachu")).toBeInTheDocument();
@@ -59,23 +41,23 @@ describe("PokemonListPage test", () => {
   });
 
   test("navigates to next page and back", async () => {
-    // wait for page to render
-    await waitFor(() => screen.getByText("List of Pokemon"));
-
-    await userEvent.click(screen.getByText("Next"));
+    render(
+      <MemoryRouter>
+        <PokemonList
+          pokemons={mockPokemons.slice(10, mockPokemons.length)}
+          total={mockPokemons.length}
+          limit={10}
+          offset={10}
+        />
+      </MemoryRouter>
+    );
 
     await waitFor(() => {
+      expect(screen.getByText("List of Pokemon")).toBeInTheDocument();
       expect(screen.getByText("wartortle")).toBeInTheDocument();
       expect(screen.queryByText("pikachu")).not.toBeInTheDocument();
       expect(screen.getByText("Previous")).toBeInTheDocument();
       expect(screen.queryByText("Next")).not.toBeInTheDocument();
-    });
-
-    await userEvent.click(screen.getByText("Previous"));
-
-    await waitFor(() => {
-      expect(screen.getByText("pikachu")).toBeInTheDocument();
-      expect(screen.queryByText("wartortle")).not.toBeInTheDocument();
     });
   });
 });

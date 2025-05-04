@@ -1,7 +1,8 @@
 import { createRoutesStub } from "react-router";
 import { render, screen, waitFor } from "@testing-library/react";
-import { Home, PokemonListPage } from "~/features/pokemon/pages";
 import userEvent from "@testing-library/user-event";
+import HomePage from "./home";
+import PokemonListPage from "./pokemons/list";
 
 const mockPokemons = [
   { name: "pikachu", url: "url1" },
@@ -22,7 +23,7 @@ const setupRouterAndRender = (initialUrl: string) => {
   const Stub = createRoutesStub([
     {
       path: "/",
-      Component: Home,
+      Component: HomePage,
     },
     {
       path: "/pokemons",

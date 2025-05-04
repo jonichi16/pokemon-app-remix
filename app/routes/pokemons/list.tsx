@@ -1,5 +1,6 @@
-import { PokemonListPage } from "~/features/pokemon/pages";
-import { loader } from "~/features/pokemon/pages/PokemonListPage/loader";
+import { useLoaderData } from "react-router";
+import { PokemonList } from "~/features/pokemon/pages";
+import { loader } from "~/features/pokemon/pages/PokemonList/loader";
 
 export { loader };
 
@@ -10,4 +11,15 @@ export function meta() {
   ];
 }
 
-export default PokemonListPage;
+export default function PokemonListPage() {
+  const { pokemons, total, limit, offset } = useLoaderData();
+
+  return (
+    <PokemonList
+      pokemons={pokemons}
+      total={total}
+      limit={limit}
+      offset={offset}
+    />
+  );
+}
