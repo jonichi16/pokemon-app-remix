@@ -15,6 +15,7 @@ describe("PokemonDetails tests", () => {
       </MemoryRouter>
     );
 
+    expect(screen.getByText("Pokemon Details")).toBeInTheDocument();
     expect(screen.getByText("pikachu")).toBeInTheDocument();
     const img = screen.getByRole("img", { name: "pikachu sprite" });
     expect(img).toBeInTheDocument();

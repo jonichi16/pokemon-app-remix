@@ -49,7 +49,7 @@ describe("Pokemon Service test", () => {
       const mockResponse = {
         data: {
           name: "pikachu",
-          sprite: {
+          sprites: {
             front_default: "url",
           },
         },

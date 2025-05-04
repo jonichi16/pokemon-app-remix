@@ -25,9 +25,9 @@ export default function PokemonList({
         <div className="space-y-6">
           <ul className="list-disc pl-5 space-y-1">
             {pokemons.map((p) => (
-              <li key={p.name} className="capitalize text-lg">
-                {p.name}
-              </li>
+              <Link key={p.name} to={`/pokemons/${p.name}`}>
+                <li className="capitalize text-lg">{p.name}</li>
+              </Link>
             ))}
           </ul>
           <div className="flex gap-4">

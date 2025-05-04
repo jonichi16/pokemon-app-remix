@@ -15,5 +15,9 @@ export function handleApiError(
     throw new Error(message || `API Error (${status})`);
   }
 
+  if (err instanceof Error) {
+    throw new Error(err.message);
+  }
+
   throw new Error(fallbackMessage);
 }

@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import HomePage from "~/routes/home";
 import PokemonListPage from "~/routes/pokemons/list";
+import PokemonDetailsPage from "~/routes/pokemons/details";
 import { mockPokemons } from "tests/__mock__/pokemon.mock";
 
 const setupRouterAndRender = (initialUrl: string) => {
@@ -26,6 +27,18 @@ const setupRouterAndRender = (initialUrl: string) => {
           total: mockPokemons.length,
           limit,
           offset,
+        };
+      },
+    },
+    {
+      path: "/pokemons/:name",
+      Component: PokemonDetailsPage,
+      HydrateFallback: () => <div>Loading...</div>,
+      loader({ params }) {
+        const { name } = params;
+        return {
+          name,
+          sprite: "url",
         };
       },
     },
@@ -71,6 +84,35 @@ describe("Navigation test", () => {
       await waitFor(() => {
         expect(screen.getByText("pikachu")).toBeInTheDocument();
         expect(screen.queryByText("wartortle")).not.toBeInTheDocument();
+      });
+    });
+
+    test("navigates back to home when home button was clicked", async () => {
+      await waitFor(() => screen.getByText("pikachu"));
+
+      const home = screen.getByText("Home");
+      await userEvent.click(home);
+
+      await waitFor(() => {
+        expect(screen.getByText("Welcome to Pokemon App!")).toBeInTheDocument();
+      });
+    });
+
+    test("navigates to pokemon details and can navigate back", async () => {
+      await waitFor(() => screen.getByText("pikachu"));
+
+      await userEvent.click(screen.getByText("pikachu"));
+
+      await waitFor(() => {
+        expect(screen.getByText("Pokemon Details")).toBeInTheDocument();
+        expect(screen.getByText("pikachu")).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getByText("Back"));
+
+      await waitFor(() => {
+        expect(screen.getByText("List of Pokemon")).toBeInTheDocument();
+        expect(screen.getByText("pikachu")).toBeInTheDocument();
       });
     });
   });

@@ -4,14 +4,14 @@ describe("handleApiError test", () => {
   it("should return fallbackMessage for unknown error", () => {
     const err = new Error("Unknown Error");
 
-    expect(() => handleApiError(err)).toThrow("Something went wrong");
+    expect(() => handleApiError(err)).toThrow("Unknown Error");
   });
 
   it("should return provided fallbackMessage for unknown error", () => {
     const err = new Error("Unknown Error");
     const fallbackMessage = "Opps! An error occured";
 
-    expect(() => handleApiError(err, fallbackMessage)).toThrow(fallbackMessage);
+    expect(() => handleApiError(err, fallbackMessage)).toThrow("Unknown Error");
   });
 
   it("should return the error message when axiosError occured", () => {
@@ -46,7 +46,7 @@ describe("handleApiError test", () => {
     const err = new Error("Unexpected failure");
 
     expect(() => handleApiError(err, "Something failed")).toThrow(
-      "Something failed"
+      "Unexpected failure"
     );
   });
 

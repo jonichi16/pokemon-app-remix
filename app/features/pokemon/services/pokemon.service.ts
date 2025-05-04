@@ -9,7 +9,7 @@ interface GetPokemonListResponse {
 
 interface GetPokemonDetailsResponse {
   name: string;
-  sprite: {
+  sprites: {
     front_default: string;
   };
 }
@@ -41,7 +41,7 @@ export async function getPokemonDetails(pokemonName: string) {
 
     const {
       name,
-      sprite: { front_default },
+      sprites: { front_default },
     } = res.data;
 
     return {

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 interface PokemonDetailsProps {
   pokemon: { name: string; sprite: string };
@@ -6,14 +6,18 @@ interface PokemonDetailsProps {
 
 export default function PokemonDetails({ pokemon }: PokemonDetailsProps) {
   const { name, sprite } = pokemon;
+  const navigate = useNavigate();
 
   return (
     <main>
-      <h1>
+      <h1>Pokemon Details</h1>
+      <p>
         Name: <span className="capitalize">{name}</span>
-      </h1>
+      </p>
       <img src={sprite} alt={`${name} sprite`} />
-      <Link to="">Back</Link>
+      <button type="button" onClick={() => navigate(-1)}>
+        Back
+      </button>
     </main>
   );
 }
