@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router";
 import { mockPokemons } from "tests/__mock__/pokemon.mock";
 import { PokemonList } from "~/features/pokemon/pages";
 
-describe("PokemonListPage test", () => {
+describe("PokemonList test", () => {
   test("renders list of pokemons", async () => {
     render(
       <MemoryRouter>
