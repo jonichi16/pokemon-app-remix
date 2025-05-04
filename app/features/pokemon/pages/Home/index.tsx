@@ -7,7 +7,7 @@ export default function Home() {
         <h1 className="text-6xl text-center font-bold">
           Welcome to Pokemon App!
         </h1>
-        <Link className="text-xl" to="/pokemons">
+        <Link className="text-xl hover:underline" to="/pokemons">
           See Pokemons
         </Link>
       </div>
