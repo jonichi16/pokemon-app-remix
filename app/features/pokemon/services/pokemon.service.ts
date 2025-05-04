@@ -7,6 +7,13 @@ interface GetPokemonListResponse {
   count: number;
 }
 
+interface GetPokemonDetailsResponse {
+  name: string;
+  sprite: {
+    front_default: string;
+  };
+}
+
 export async function getPokemonList(limit: number, offset: number) {
   try {
     const res = await api.get<GetPokemonListResponse>(
@@ -20,6 +27,26 @@ export async function getPokemonList(limit: number, offset: number) {
       total: count,
       limit,
       offset,
+    };
+  } catch (error) {
+    handleApiError(error);
+  }
+}
+
+export async function getPokemonDetails(pokemonName: string) {
+  try {
+    const res = await api.get<GetPokemonDetailsResponse>(
+      `/pokemon/${pokemonName}`
+    );
+
+    const {
+      name,
+      sprite: { front_default },
+    } = res.data;
+
+    return {
+      name,
+      sprite: front_default,
     };
   } catch (error) {
     handleApiError(error);
