@@ -43,9 +43,11 @@ const setupRouterAndRender = (initialUrl: string) => {
 };
 
 describe("PokemonListPage test", () => {
-  test("renders list of pokemons", async () => {
+  beforeEach(() => {
     setupRouterAndRender("/pokemons");
+  });
 
+  test("renders list of pokemons", async () => {
     await waitFor(() => {
       expect(screen.getByText("List of Pokemon")).toBeInTheDocument();
       expect(screen.getByText("pikachu")).toBeInTheDocument();
@@ -56,8 +58,6 @@ describe("PokemonListPage test", () => {
   });
 
   test("navigates to next page and back", async () => {
-    setupRouterAndRender("/pokemons");
-
     // wait for page to render
     await waitFor(() => screen.getByText("List of Pokemon"));
 

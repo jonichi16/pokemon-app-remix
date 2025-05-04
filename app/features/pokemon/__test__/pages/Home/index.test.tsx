@@ -1,6 +1,6 @@
 import { createRoutesStub } from "react-router";
 import { render, screen, waitFor } from "@testing-library/react";
-import Home from "~/routes/home";
+import { Home } from "~/features/pokemon/pages";
 
 const setupRouterAndRender = (initialUrl: string) => {
   const Stub = createRoutesStub([
@@ -14,9 +14,11 @@ const setupRouterAndRender = (initialUrl: string) => {
 };
 
 describe("Home test", () => {
-  test("renders titles and include button to navigate", async () => {
+  beforeEach(() => {
     setupRouterAndRender("/");
+  });
 
+  test("renders titles and include button to navigate", async () => {
     await waitFor(() => {
       expect(screen.getByText("Welcome to Pokemon App!")).toBeInTheDocument();
       expect(
