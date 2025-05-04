@@ -1,6 +1,6 @@
-import axios from "axios";
 import type { Pokemon } from "~/common/types/pokemon";
 import api from "~/common/utils/api";
+import { handleApiError } from "~/common/utils/errors/handleApiError";
 
 interface GetPokemonListResponse {
   results: Pokemon[];
@@ -22,8 +22,6 @@ export async function getPokemonList(limit: number, offset: number) {
       offset,
     };
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || "Pokemon not found");
-    }
+    handleApiError(error);
   }
 }
