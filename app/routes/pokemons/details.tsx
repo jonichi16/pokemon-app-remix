@@ -6,5 +6,6 @@ export { loader };
 
 export default function PokemonDetailsPage() {
   const { name, sprite } = useLoaderData();
+  console.log(name, sprite);
   return <PokemonDetails pokemon={{ name, sprite }} />;
 }
