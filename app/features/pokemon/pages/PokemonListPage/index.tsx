@@ -1,7 +1,5 @@
 import { useLoaderData } from "react-router";
-import PokemonList from "./component";
-
-// clientLoader.hydrate = true as const;
+import { PokemonList } from "../../components";
 
 export default function PokemonListPage() {
   const { pokemons, total, limit, offset } = useLoaderData();
