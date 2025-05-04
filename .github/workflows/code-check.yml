@@ -1,7 +1,6 @@
 name: code-check
 
-on:
-  workflow_dispatch:
+on: [pull_request]
 
 concurrency:
   group: ci-${{ github.ref }}-group
