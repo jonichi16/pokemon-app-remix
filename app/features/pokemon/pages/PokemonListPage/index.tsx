@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router";
-import PokemonList from "./pokemon-list";
+import PokemonList from "./component";
 
 // clientLoader.hydrate = true as const;
 
