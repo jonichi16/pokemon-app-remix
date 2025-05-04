@@ -1,6 +1,6 @@
 import type { Mock } from "vitest";
 import api from "~/common/utils/api";
-import { getPokemonList } from "../../services";
+import { getPokemonList } from "~/features/pokemon/services";
 
 vi.mock("~/common/utils/api");
 
