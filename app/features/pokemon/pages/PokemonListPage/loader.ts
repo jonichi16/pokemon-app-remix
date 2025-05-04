@@ -1,4 +1,4 @@
-import type { Route } from ".react-router/types/app/routes/pokemons/+types/list";
+import type { Route } from ".react-router/types/app/routes/+types";
 import { getPokemonList } from "../../services";
 
 export async function loader({ request }: Route.LoaderArgs) {

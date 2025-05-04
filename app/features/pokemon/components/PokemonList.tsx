@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { Pokemon } from "~/common/types/pokemon";
+import type { Pokemon } from "~/common/types/pokemon.type";
 
 interface PokemonListProps {
   pokemons: Pokemon[];

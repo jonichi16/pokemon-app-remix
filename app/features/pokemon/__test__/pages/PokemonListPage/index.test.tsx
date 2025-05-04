@@ -54,6 +54,7 @@ describe("PokemonListPage test", () => {
       expect(screen.queryByText("wartortle")).not.toBeInTheDocument();
       expect(screen.getByText("Next")).toBeInTheDocument();
       expect(screen.queryByText("Previous")).not.toBeInTheDocument();
+      expect(screen.getByText("Home")).toBeInTheDocument();
     });
   });
 
