@@ -1,6 +1,6 @@
 import type { Pokemon } from "~/common/types/pokemon.type";
 import api from "~/common/utils/api";
-import { handleApiError } from "~/common/utils/errors/handleApiError";
+import { handleApiError } from "~/common/utils/errors/error-handler";
 
 interface GetPokemonListResponse {
   results: Pokemon[];

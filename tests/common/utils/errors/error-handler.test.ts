@@ -1,4 +1,4 @@
-import { handleApiError } from "~/common/utils/errors/handleApiError";
+import { handleApiError } from "~/common/utils/errors/error-handler";
 
 describe("handleApiError test", () => {
   it("should return fallbackMessage for unknown error", () => {
