@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import { PokemonList } from "~/features/pokemon/pages";
-import { loader } from "~/features/pokemon/pages/PokemonList/loader";
+import { loader } from "~/features/pokemon/pages/pokemon-list/loader";
 
 export { loader };
 

@@ -1,6 +1,6 @@
 import type { Route } from ".react-router/types/app/routes/pokemons/+types/list";
 import type { Mock } from "vitest";
-import { loader } from "~/features/pokemon/pages/PokemonList/loader";
+import { loader } from "~/features/pokemon/pages/pokemon-list/loader";
 import { getPokemonList } from "~/features/pokemon/services";
 
 vi.mock("~/features/pokemon/services");

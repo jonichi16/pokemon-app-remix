@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Button } from "~/lib/components/ui/button";
 
 export default function Home() {
   return (
@@ -7,9 +8,11 @@ export default function Home() {
         <h1 className="text-6xl text-center font-bold">
           Welcome to Pokemon App!
         </h1>
-        <Link className="text-xl hover:underline" to="/pokemons">
-          See Pokemons
-        </Link>
+        <Button variant="outline">
+          <Link className="text-xl" to="/pokemons">
+            See Pokemons
+          </Link>
+        </Button>
       </div>
     </main>
   );
